@@ -1,0 +1,3 @@
+module RubyLexer
+  VERSION: String
+end
