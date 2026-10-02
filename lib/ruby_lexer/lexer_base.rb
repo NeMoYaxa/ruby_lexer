@@ -5,12 +5,12 @@ module RubyLexer
     attr_reader :code
 
     def initialize(code)
-      @code = code
-      @line = 1
-      @column = 1
-      @current = 1
-      @token_start = 0
-      @at_eoln = false
+      @code = code # код программы
+      @line = 1 # текущая строка
+      @column = 1 # текущий столбец
+      @current = 0 # текущая позиция
+      @token_start = 0 # начальная позиция токена
+      @at_eoln = false # сервисное поле для метода next_char
     end
 
     protected
@@ -44,7 +44,7 @@ module RubyLexer
     end
 
     # Возвращает текущий символ и переходит в следующему
-    def next_char # rubocop:disable Metrics/MethodLength
+    def next_char
       char = peek_char
 
       return if char == "\0"
@@ -99,11 +99,11 @@ module RubyLexer
     def read_number
       start_token
 
-      next_char while peek_char.digit?
+      next_char while digit?(peek_char)
 
-      if peek_char == "." && peek_next_char.digit?
+      if peek_char == "." && digit?(peek_next_char)
         next_char
-        next_char while peek_char.digit?
+        next_char while digit?(peek_char)
       end
 
       token_text
@@ -128,10 +128,15 @@ module RubyLexer
       if match?(quote_char)
         next_char while (peek_char != quote_char) && !at_end?
 
-        raise LexerError.new("Незавершенная строковая константа", current_position) unless match?(quote_char)
+        raise BaseError::LexerError.new("Незавершенная строковая константа", current_position) unless match?(quote_char)
       end
 
       token_text
     end
+
+    # Прочитать переменную
+    # def read_variable
+    # start_token
+    # end
   end
 end

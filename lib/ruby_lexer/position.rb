@@ -2,11 +2,11 @@
 
 module RubyLexer
   class Position
-    attr_reader :line, :colum
+    attr_reader :line, :column
 
-    def initialize(line, colum)
+    def initialize(line, column)
       @line = line
-      @colum = colum
+      @column = column
     end
   end
 end

@@ -17,14 +17,13 @@ module RubyLexer
     DIVIDE = :divide
     DOT = :dot
 
-    SEMICOLON = :semicolon
     LPAR = :lpar
     RPAR = :rpar
     LBRACE = :lbrace
     RBRACE = :rbrace
     COMMA = :comma
     COLON = :colon
-    DOUBLE_COLON = :double_colon
+    # DOUBLE_COLON = :double_colon
 
     ASSIGN = :assign
     ASSIGN_PLUS = :assign_plus
@@ -39,9 +38,11 @@ module RubyLexer
     GREATER_EQUAL = :greater_equal
     NOT_EQUAL = :not_equal
 
-    AND = :and
-    OR = :or
-    NOT = :not
+    TK_AND = :tk_and
+    TK_OR = :tk_or
+    TK_NOT = :tk_not
+    TK_BIT_AND = :tk_bit_and
+    TK_BI_TOR = :tk_bit_or
 
     EOF = :eof
     COMMENT = :comment
