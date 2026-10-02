@@ -2,11 +2,14 @@
 
 module RubyLexer
   module TokenType
-    INT = :int
-    DOUBLE_LITERAL = :double_literal
-    STRING_LITERAL = :string_literal
+    INTEGER = :integer
+    FLOAT = :float
+    STRING = :string
 
     ID = :id
+    INSTANCE_VAR = :instance_var      # @name
+    CLASS_VAR    = :class_var         # @@name
+    GLOBAL_VAR   = :global_var        # $name
 
     PLUS = :plus
     MINUS = :minus
@@ -21,6 +24,7 @@ module RubyLexer
     RBRACE = :rbrace
     COMMA = :comma
     COLON = :colon
+    DOUBLE_COLON = :double_colon
 
     ASSIGN = :assign
     ASSIGN_PLUS = :assign_plus
@@ -40,13 +44,17 @@ module RubyLexer
     NOT = :not
 
     EOF = :eof
+    COMMENT = :comment
 
+    NIL = :nil
     TRUE = :true
     FALSE = :false
     IF = :if
+    UNLESS = :unless
     THEN = :then
     ELSE = :else
+    ELSIF = :elsif
     WHILE = :while
-    DO = :do
+    UNTIL = :until
   end
 end
