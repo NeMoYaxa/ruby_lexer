@@ -11,7 +11,10 @@ module RubyLexer
       "else" => TokenType::ELSE,
       "elsif" => TokenType::ELSIF,
       "while" => TokenType::WHILE,
-      "until" => TokenType::UNTIL
+      "until" => TokenType::UNTIL,
+      "then" => TokenType::THEN,
+      "do" => TokenType::DO,
+      "repeat" => TokenType::REPEAT
     }.freeze
 
     def next_token
@@ -67,10 +70,14 @@ module RubyLexer
       case char
       when ","
         Token.new(TokenType::COMMA, start_position, ",")
+      when ";"
+        Token.new(TokenType::SEMICOLON, start_position, ";")
+      when ":"
+        Token.new(TokenType::COLON, start_position, ":")
       when "("
-        Token.new(TokenType::LPAP, start_position, "(")
+        Token.new(TokenType::LPAR, start_position, "(")
       when ")"
-        Token.new(TokenType::RPAP, start_position, ")")
+        Token.new(TokenType::RPAR, start_position, ")")
       when "{"
         Token.new(TokenType::LBRACE, start_position, "{")
       when "}"
@@ -86,7 +93,7 @@ module RubyLexer
       when "/"
         Token.new(match?("=") ? TokenType::ASSIGN_DIV : TokenType::DIVIDE, start_position, token_text)
       when "!"
-        Token.new(match?("=") ? TokenType::NOT_EQUAL : TokenType::TKNOT, start_position, token_text)
+        Token.new(match?("=") ? TokenType::NOT_EQUAL : TokenType::TK_NOT, start_position, token_text)
       when "="
         Token.new(match?("=") ? TokenType::EQUAL : TokenType::ASSIGN, start_position, token_text)
       when ">"
@@ -94,17 +101,13 @@ module RubyLexer
       when "<"
         Token.new(match?("=") ? TokenType::LESS_EQUAL : TokenType::LESS, start_position, token_text)
       when "&"
-        if match?("&")
-          Token.new(TokenType::TK_AND, start_position, "&&")
-        else
-          Token.new(TokenType::TK_BIT_AND, start_position, "&")
-        end
+        raise BaseError::LexerError.new("Ожидался второй символ '&'", start_position) unless match?("&")
+
+        Token.new(TokenType::TK_AND, start_position, "&&")
       when "|"
-        if match?("|")
-          Token.new(TokenType::TK_OR, start_position, "||")
-        else
-          Token.new(TokenType::TK_BIT_OR, start_position, "|")
-        end
+        raise BaseError::LexerError.new("Ожидался второй символ '|'", start_position) unless match?("|")
+
+        Token.new(TokenType::TK_OR, start_position, "||")
       when "#"
         next_char while peek_char != "\n" && !at_end?
         next_token

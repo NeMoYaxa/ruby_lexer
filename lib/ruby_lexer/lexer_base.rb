@@ -40,7 +40,7 @@ module RubyLexer
 
     # Вернуть следующий символ
     def peek_next_char
-      @current + 1 >= @code.lenght ? "\0" : @code[@current + 1]
+      @current + 1 >= @code.length ? "\0" : @code[@current + 1]
     end
 
     # Возвращает текущий символ и переходит в следующему
@@ -82,7 +82,7 @@ module RubyLexer
 
     # Является ли символ буквой
     def alpha?(char)
-      char.match?(/\A\p{L}\z/)
+      char.match?(/\A(?:\p{L}|_)\z/)
     end
 
     # Является ли символ числом

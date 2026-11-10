@@ -22,6 +22,7 @@ module RubyLexer
     LBRACE = :lbrace
     RBRACE = :rbrace
     COMMA = :comma
+    SEMICOLON = :semicolon
     COLON = :colon
     # DOUBLE_COLON = :double_colon
 
@@ -42,7 +43,12 @@ module RubyLexer
     TK_OR = :tk_or
     TK_NOT = :tk_not
     TK_BIT_AND = :tk_bit_and
-    TK_BI_TOR = :tk_bit_or
+    TK_BIT_OR = :tk_bit_or
+
+    LPAP = LPAR
+    RPAP = RPAR
+    TKNOT = TK_NOT
+    TK_BI_TOR = TK_BIT_OR
 
     EOF = :eof
     COMMENT = :comment
@@ -53,6 +59,8 @@ module RubyLexer
     IF = :if
     UNLESS = :unless
     THEN = :then
+    DO = :do
+    REPEAT = :repeat
     ELSE = :else
     ELSIF = :elsif
     WHILE = :while

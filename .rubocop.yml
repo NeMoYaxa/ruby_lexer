@@ -20,3 +20,8 @@ Metrics/MethodLength:
 
 Metrics/ClassLength:
     Enabled: false
+
+Metrics/AbcSize:
+  Max: 40
+Metrics/CyclomaticComplexity:
+  Max: 10
